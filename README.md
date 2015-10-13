@@ -10,7 +10,7 @@ NEED TO DO:
     - Forecast - shows the 5 day forecast of selected city, if none are selected, find the closest one to user's location
 
 2.Database
-  -create table to store saves
+  - create table to store saves
   - create queries to get/save/update/delete setting options
   
 3. Open Weather Map
