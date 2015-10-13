@@ -4,10 +4,10 @@ Python Weather Project
 NEED TO DO:
 
 1.GUI
-  -Login in page (possibly)?
-  -Pages for:
-    Settings - place to save cities and degree type, possibly others once we figure out the weather library
-    Forecast - shows the 5 day forecast of selected city, if none are selected, find the closest one to user's location
+  - Login in page (possibly)?
+  - Pages for:
+    - Settings - place to save cities and degree type, possibly others once we figure out the weather library
+    - Forecast - shows the 5 day forecast of selected city, if none are selected, find the closest one to user's location
 
 2.Database
   -create table to store saves
