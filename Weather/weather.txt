@@ -1,0 +1,36 @@
+Wind:
+{'speed': 2.15, 'deg': 250}
+<class 'dict'>
+<super: <class 'dict'>, <dict object>>
+Humidity:
+95
+<class 'int'>
+<super: <class 'int'>, <int object>>
+Tempurature:
+{'temp': 81.67, 'temp_min': 81.67, 'temp_max': 81.67, 'temp_kf': None}
+<class 'dict'>
+<super: <class 'dict'>, <dict object>>
+Sunrise:
+2015-10-29 11:39:17+00
+<class 'str'>
+<super: <class 'str'>, <str object>>
+Sunset:
+2015-10-29 22:47:19+00
+<class 'str'>
+<super: <class 'str'>, <str object>>
+Clouds:
+12
+<class 'int'>
+<super: <class 'int'>, <int object>>
+Rain Volume:
+{}
+<class 'dict'>
+<super: <class 'dict'>, <dict object>>
+Snow Volume:
+{}
+<class 'dict'>
+<super: <class 'dict'>, <dict object>>
+Pressure:
+{'sea_level': 1027.53, 'press': 1025.08}
+<class 'dict'>
+<super: <class 'dict'>, <dict object>>
