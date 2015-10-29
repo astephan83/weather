@@ -30,7 +30,10 @@ def findDataType(data):
 # Will it be sunny tomorrow at this time in Milan (Italy) ?
 forecast = owm.daily_forecast("Milan,it")
 tomorrow = pyowm.timeutils.tomorrow()
-forecast.will_be_sunny_at(tomorrow)  # Always True in Italy, right? ;-)
+if forecast.will_be_sunny_at(tomorrow): # Always True in Italy, right? ;-)
+  print("yep") 
+else:
+  print("nope")
 
 # Search for current weather in 'City, state'
 def forcast(city, state=None):
@@ -38,8 +41,7 @@ def forcast(city, state=None):
         rqsted_city = city
     else:
         rqsted_city = city + ', ' + state
-    
-    observation = owm.weather_at_place(rqsted_city) # AssurtionError if not string
+
     forcast = owm.daily_forecast(rqsted_city, limit=FORCAST_DAYS)
     cast = forcast.get_forecast()
     lst = cast.get_weathers()
@@ -52,30 +54,19 @@ def forcast(city, state=None):
 def get_dates():
     number_of_days = []
     for i in range(FORCAST_DAYS):
-        number_of_days.append(datetime.date.today() + datetime.timedelta(days=i))
+        number_of_days.append((localtime(time() + 24*3600 * i)[0], localtime(time() + 24*3600*i)[1], localtime(time() + 24*3600*i)[2]))
+    #print(number_of_days)
 
-    days = []
-    months = []
-    years = []
-    for dates in number_of_days:
-        #print(dates)
-        years.append(str(dates)[0:4])
-        months.append(str(dates)[5:7])
-        days.append(str(dates)[8:])
+    # return a list of tuples(year, month, day) for FORCAST_DAYS
+    return number_of_days
 
-    # return a tuple of lists for five days
-    return years, months, days
-
+get_dates()
+    
+observation = owm.weather_at_place('Tampa, FL') # AssurtionError if not string
 w = observation.get_weather()
 #print(w)                      # <Weather - reference time=2013-12-18 09:20, status=Clouds>
 
-
 print(findDataType(w.get_temperature()))
-
-
-# Search current weather observations in the surroundings of 
-# lat=22.57W, lon=43.12S (Rio de Janeiro, BR)
-observation_list = owm.weather_around_coords(-22.57, -43.12)
 
 '''
 FUNCTIONS FOR GUI
