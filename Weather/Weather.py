@@ -9,6 +9,7 @@ users to save settings, such as cities and default temperature.
 Also have an option to print out the forecast.
 
 77dbc172aee4836d569ffcc9c4715602
+
 '''
 
 import sqlite3
