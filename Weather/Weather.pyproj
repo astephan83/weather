@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>640bbef3-fd71-4f2b-8b8d-b3651fc25c70</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Weather.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="database_queries.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI_Main_Screen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Weather.py" />
   </ItemGroup>
   <PropertyGroup>
