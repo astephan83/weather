@@ -15,12 +15,15 @@ Also have an option to print out the forecast.
 import sqlite3
 import pyowm
 import sys
-from PySide import QtGui
+from PySide.QtCore import *
+from PySide.QtGui import *
 import datetime
 from time import localtime, time
+from math import *
+from builtins import super
 
-app = QtGui.QApplication(sys.argv)
-win = QtGui.QWidget()
+#app = QApplication(sys.argv)
+#win = QWidget()
 owm = pyowm.OWM('77dbc172aee4836d569ffcc9c4715602')
 FORCAST_DAYS = 5
 
@@ -86,8 +89,6 @@ class Weather:
     # dispaly funciton
     def display(self):
         pass
-
-
     
 # history tab click (max 10)
 
@@ -101,3 +102,73 @@ class Weather:
 
 # zip text box (input from user)
 
+
+''' ALARM POPUP TEST FOR QT 
+app = QApplication(sys.argv)
+
+try:
+    # default message
+    due = QTime.currentTime()
+    message = "Alert"
+    
+    if len(sys.argv) < 2:
+        raise ValueError
+    
+    hours, minutes = sys.argv[1].split(':')
+    due = QTime(int(hours), int(minutes))
+    
+    if not due.isValid():
+        raise ValueError
+    
+    # if user inputs a mesage after time, join into one string
+    if len(sys.argv) > 2:
+        message = " ".join(sys.argv[2:])
+    # if the user did not specify, Alert is default
+    
+except ValueError:
+     message = "Ussage: pop.py HH:MM {optional message}" # 24 hout clock
+
+
+while QTime.currentTime() < due:
+    time.sleep(10)
+
+label = QLabel('<font color=red size=72)<b>' + message + '</b></fort>')
+label.setWindowFlags(Qt.SplashScreen)
+label.show()
+
+QTimer.singleShot(20000, app.quit) #20 seconds
+app.exec_()
+'''
+
+''' Test QT CALCULATOR
+class Form(QDialog):
+    
+    def __init__(self, parent=None):
+        super(Form, self).__init__(parent)
+        self.browser = QTextBrowser()
+        self.linedit = QLineEdit("Type an Expression and press Enter")
+        self.linedit.selectAll()
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.browser)
+        layout.addWidget(self.linedit)
+        self.setLayout(layout)
+
+        self.linedit.setFocus()
+
+        # connecting signal in of line edit to update the ui
+        self.connect(self.linedit, SIGNAL("returnPressed()"), self.updateUi)
+        self.setWindowTitle("Calculate")
+
+    def updateUi(self):
+        try:
+            text = self.linedit.text()
+            self.browser.append("%s = <b>%s<b>" % (text, eval(text)))
+        except:
+            self.browser.append("<font color=red>%s is invalid</font>" % text)
+
+app = QApplication(sys.argv)
+form = Form()
+form.show()
+app.exec_()
+'''
