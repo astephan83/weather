@@ -1,4 +1,4 @@
 Reference File
 
-[1] http://www.tkdocs.com/tutorial/grid.html
-[2] 
+[1] http://www.tkdocs.com/tutorial/grid.html for using tkinter grid
+[2] https://docs.python.org/3.0/library/tkinter.html for tkinter as class

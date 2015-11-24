@@ -41,7 +41,7 @@
     <Compile Include="Weather.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HTML.html" />
+    <Content Include="main.html" />
     <Content Include="References.txt" />
     <Content Include="weather.db" />
   </ItemGroup>

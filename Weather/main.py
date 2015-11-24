@@ -31,7 +31,7 @@ def main():
     root = Tk()
     app = GuiMain.GUI_Main_Screen(master=root)
     app.mainloop()
-    root.destroy()
+    #root.destroy()
 
 
 if __name__ == '__main__':

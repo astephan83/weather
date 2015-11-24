@@ -2,33 +2,21 @@
 Group B
 Jamie Wimsatt, Zack Powell, Amanda Stephan
 Weather Application:
-The application’s goal is to retrieve data about the weather 
-using OpenWeatherMap API and displaying a week long forecast 
-in an application using a GUI. The application will also allow 
-users to save settings, such as cities and default temperature. 
-Also have an option to print out the forecast.
-
-77dbc172aee4836d569ffcc9c4715602
-
+owm application code: 77dbc172aee4836d569ffcc9c4715602
 '''
 
-import sqlite3
 import pyowm
 import sys
-from PySide.QtCore import *
-from PySide.QtGui import *
-import datetime
 from time import localtime, time
 from math import *
-from builtins import super
+import database_queries
 
-#app = QApplication(sys.argv)
-#win = QWidget()
 owm = pyowm.OWM('77dbc172aee4836d569ffcc9c4715602')
 FORCAST_DAYS = 5
+DAYOFWEEK = {0:'Monday', 1:'Tuesday', 2:'Wednesday', 3:'Thursday', 4:'Friday', 5:'Saturday', 6:'Sunday'}
 
 # Search for current weather in 'City, state'
-def forcast(city, state=None):
+def forcast(city, state=None, tmp_unit='F'):
     if state == None:
         rqsted_city = city
     else:
@@ -37,17 +25,18 @@ def forcast(city, state=None):
     forcast = owm.daily_forecast(rqsted_city, limit=FORCAST_DAYS)
     cast = forcast.get_forecast()
     lst = cast.get_weathers()
-    print(city)
-    for weather in cast:
-        print(weather.get_reference_time('iso'), weather.get_status())
-    print()
+    #print(city)
+    dates = get_dates()
+    return_list = []
+    for weather, date in zip(cast,dates):
+       return_list.append((weather.get_status(), date, database_queries.get_icon(None, weather.get_status())))
+    return return_list # returns list of strings
 
 # get five dates starting from today
 def get_dates():
     dates = []
-    for i in range(FORCAST_DAYS):
-        dates.append((localtime(time() + 24*3600 * i)[0], localtime(time() + 24*3600*i)[1], localtime(time() + 24*3600*i)[2]))
-    #print(number_of_days)
+    for i in range(FORCAST_DAYS + 1):
+        dates.append((localtime(time() + 24*3600 * i)[0], localtime(time() + 24*3600*i)[1], localtime(time() + 24*3600*i)[2], DAYOFWEEK[localtime(time() + 24*3600*i)[6]]))
 
     # return a list of tuples(year, month, day) for FORCAST_DAYS
     return dates
