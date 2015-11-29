@@ -10,6 +10,7 @@ import sys
 from time import localtime, time
 from math import *
 import database_queries
+import datetime
 
 owm = pyowm.OWM('77dbc172aee4836d569ffcc9c4715602')
 FORCAST_DAYS = 5
@@ -28,13 +29,9 @@ def forcast(city, state=None, tmp_unit='F'):
     lst = cast.get_weathers()
     #print(city)
     dates = get_dates()
-    temps = []
-    '''
-    for date in dates:
-        temps.append(one_day_forcast(forcast, city, state, date, tmp_unit))
-    '''
+   
     return_list = []
-    for weather, date, temp in zip(cast,dates,temps):
+    for weather, date, temp in zip(cast,dates):
        return_list.append((weather.get_status(), date, 'database_queries.get_icon(None, weather.get_status())', temp))
     return return_list # returns list of ['weather', (year, month, day, day_of_week), icon, (min_temp, max_temp)]
 
@@ -51,17 +48,29 @@ def get_dates():
 
 # get the forcast for one day 
 #    date should be a list of year, month, day
-#    returns a tuple of ints (min_temp, max_temp)
-def one_day_forcast(forcast, city, state=None, date=None, tmp_unit='F'):
-    next_date = datetime(int(date[0]), int(date[1]), int(date[2]), 12, 0)
-    weather = forcast.get_weather_at(next_date)
-    if state != None:
-        w = weather.weather_at_place(city + ',' + state)
-    else:
-        w = weather.weather_at_place(city)
+#    returns a list of tuples of ints (min_temp, max_temp)
+def one_day_forcast(forcast, city, state=None, tmp_unit='F'):
+    dates = []
+    weathers = []
+    w = []
+    temps = []
 
-    temp = w.get_temperature(TEMP_UNIT[tmp_unit])
-    return temp['temp_min'], temp['temp_max'] # weather object
+    for i in range(FORCAST_DAYS + 1):
+        dates.append((localtime(time() + 24*3600 * i)[0], localtime(time() + 24*3600*i)[1], localtime(time() + 24*3600*i)[2], 12, 0))
+    
+    for date in dates:
+        weathers.append(forcast.get_weather_at(date))
+
+    if state != None:
+        for weather in weathers:
+            w.append(weather.weather_at_place(city + ',' + state))
+    else:
+        for weather in weathers:
+            w.append(weather.weather_at_place(city))
+
+    for each in w:
+        temp.append(each.get_temperature(TEMP_UNIT[tmp_unit])['temp_min'], each.get_temperature(TEMP_UNIT[tmp_unit])['temp_max'])
+    return temp # list of tuples of ints
 
 # get the current tempurature
 #  
